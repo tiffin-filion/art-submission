@@ -3,6 +3,11 @@
  * with clouds and starry night sky
  */
 
+ /** TODO */
+ /* add comments where necessary
+  * use for loops for repeating items like the circles for the swirl clouds
+  */
+
 import java.awt.Color;
 import java.awt.Graphics;
 
