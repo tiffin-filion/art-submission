@@ -5,14 +5,7 @@
  * Mountain with clouds and starry night sky
  */
 
- /** TODO */
- /* add comments where necessary
-  * use for loops for repeating items like the circles for the swirl clouds
-  */
-
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Arrays;
+import java.awt.*;
 
 public class Main {
 
@@ -33,7 +26,7 @@ public class Main {
     Color lightLavender = new Color(236, 239, 249);
 
     // Draw layers
-    drawStars(g, white);
+    drawStars(g, white);   
     drawStripedCloud(g, lightLavender, white);
     drawDottedClouds(g, white, teal);
     drawLineClouds(g, lightBlue, medBlue);
@@ -94,7 +87,7 @@ public class Main {
     
     /** end of drawStars method **/
   }
-
+  
   public static void drawStripedCloud(Graphics g, Color background, Color lines) {
     // starting coordinates and size    
     int x = 849;
@@ -288,8 +281,8 @@ public class Main {
     g.setColor(background);
     g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
 
-    // creates 6 more stripes for the rectangle
-    for (int i = 0; i < 6; i++) {
+    // creates 9 more stripes for the rectangle
+    for (int i = 0; i < 9; i++) {
       y += 10;
       g.setColor(lines);
       g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
@@ -520,42 +513,35 @@ public class Main {
 
   public static void drawTrees(Graphics g, Color main) {
     g.setColor(main);
-    int x = 525;
-    int y = 285;
-    int[][] Points = calculateNextTreePlacement(x, y);
-    System.out.println(Arrays.deepToString(Points));
-    int[] x1Points = Points[0];
-    int[] y1Points = Points[1];
-    int[] x2Points = Points[2];
-    int[] y2Points = Points[3];
+    int[] x = {0, 46, 107, 144, 139, 157, 207, 262, 298, 292, 315, 357, 398, 403, 435, 476, 
+        519, 567, 610, 639, 653, 675, 710, 743, 757, 752, 782, 791, 826, 864, 904, 948, 979,
+        990, 1014, 1047, 1085, 1115, 1133, 1129, 1159, 1199, 1235, 1267, 1288, 0, 150, 300,
+        600, 900, 1200, 72, 372, 672, 972, 1272, 119, 419, 719, 1019, 235, 535, 835, 1135,
+        234, 534, 834, 1134, 355, 655, 955, 469, 769, 1069, 359, 659, 450, 551, 474, 575};
+    int[] y = {540, 497, 491, 498, 466, 433, 406, 401, 409, 370, 330, 305, 304, 258, 220, 196,
+        189, 194, 212, 236, 275, 272, 278, 306, 343, 382, 387, 407, 382, 366, 362, 376, 398,
+        445, 438, 431, 437, 461, 487, 525, 519, 514, 520, 533, 551, 698, 698, 698, 
+        698, 698, 698, 631, 631, 631, 631, 631, 555, 555, 555, 555, 482, 482, 482, 482,
+        578, 578, 578, 578, 439, 439, 439, 646, 646, 646, 359, 359, 378, 329, 265, 235};
+
+    int[][] Points = new int[4][7];
     
-    for (int i = 0; i < x1Points.length; i++) {
-      int x1 = x1Points[i];
-      int y1 = y1Points[i];
-      int x2 = x2Points[i];
-      int y2 = y2Points[i];
-      g.drawLine(x1, y1, x2, y2);
+    for (int i = 0; i < x.length; i++) {
+      Points = calculateNextTreePlacement(x[i], y[i]);
+      int[] x1Points = Points[0];
+      int[] y1Points = Points[1];
+      int[] x2Points = Points[2];
+      int[] y2Points = Points[3];
+      
+      for (int j = 0; j < x1Points.length; j++) {
+        int x1 = x1Points[j];
+        int y1 = y1Points[j];
+        int x2 = x2Points[j];
+        int y2 = y2Points[j];
+        g.drawLine(x1, y1, x2, y2);
+      }
     }
 
-    /*
-     {525, 525, 525, 525, 525, 525, 525}; // tree trunk
-     {285, 285, 285, 295, 295, 305, 305}; // starting point of branches
-     {525, 515, 535, 515, 535, 515, 535}; // x-axis end of branches
-     {325, 295, 295, 305, 305, 315, 315}; // y-axis end of branches    */
-
-    
-    // coordinate starting point for next tree
-    /*x = 0;
-    y = 580;
-    
-    calculateNextTreePlacement(x, y);
-    for (int i = 0; i < Points[0].length; i++) {
-      int x1 = x1Points[i];
-      int y1 = y1Points[i];
-      int x2 = x2Points[i];
-      int y2 = y2Points[i];
-      g.drawLine(x1, y1, x2, y2);
-    }*/
     /** end of drawTrees method **/
   }
   
@@ -564,22 +550,22 @@ public class Main {
 
     for (int i = 0; i < Points.length; i++) {
       // fills values for x1Points
-      if (Points[i] = [0]) {
-        for (int j = 0; j < Points[0].length; j++) {
-          Points[0][j] = x;
+      if (i == 0) {
+        for (int j = 0; j < Points[i].length; j++) {
+          Points[i][j] = x;
         }  
       }
       
       // fills values for y1Points
       if (i == 1) {
         for (int j = 0; j < Points[i].length; j++) {
-          if (Points[i][j] == 0 || Points[i][j] == 1 || Points[i][j] == 2) {
+          if (j == 0 || j == 1 || j == 2) {
             Points[i][j] = y;
           }
-          else if (Points[i][j] == 3 ||Points[i][j] == 4) {
+          else if (j == 3 ||j == 4) {
             Points[i][j] = y + 10;
           }
-          else if (Points[i][j] == 5 || Points[i][j] == 6) {
+          else if (j == 5 || j == 6) {
             Points[i][j] = y + 20;
           }
         }
@@ -588,14 +574,14 @@ public class Main {
       // fills values for x2Points
       if (i == 2) {
         for (int j = 0; j < Points[2].length; j++) {
-          if (Points[2][j] == 0) {
-            Points[2][j] = x;
+          if (j == 0) {
+            Points[i][j] = x;
           }
-          else if (Points[2][j] % 2 != 0) {
-            Points[2][j] = x -10;
+          else if (j % 2 != 0) {
+            Points[i][j] = x -10;
           }
-          else if (Points[2][j] % 2 == 0) {
-            Points[2][j] = x + 10;
+          else if (j % 2 == 0) {
+            Points[i][j] = x + 10;
           }
         }
       }
@@ -603,15 +589,21 @@ public class Main {
       // fills values for y2Points
       if (i == 3) {
         for (int j = 0; j < Points[3].length; j++) {
-          if (Points[3][j] == 0) {
-            Points[3][j] = y + 40;
+          if (j == 0) {
+            Points[i][j] = y + 40;
           }
-          else
-            Points[3][j] = y + 10;
+          else if (j == 1 || j == 2) {
+            Points[i][j] = y + 10;
+          }
+          else if (j == 3 || j == 4) {
+            Points[i][j] = y + 20;
+          }
+          else if (j == 5 || j == 6) {
+            Points[i][j] = y + 30;
           }
         }
+      }
     }
-
     return Points;
     
     /** end of calculateNextTreePlacement method **/
